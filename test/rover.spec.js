@@ -41,24 +41,6 @@ each([
   assert.strictEqual(input, expected);
 });
 
-// test step out of grid range
-mockGrid = {
-  dangerArea: [],
-  outOfGrid: function () { return true; },
-  inDangerArea: function() { return false; },
-  setBeacon: function (x, y) { this.dangerArea.push({ x, y }) }
-};
-const outOfRangeRover = new Rover(5, 5, 'E', mockGrid);
-
-outOfRangeRover.move('M');
-
-each([
-  [outOfRangeRover.isDead, true],
-  [mockGrid.dangerArea, [{x: 6, y: 5 }]]
-]).then('Rover should mark as dead when out of grid and set a beacon', (input, expected) => {
-  assert.deepStrictEqual(input, expected);
-});
-
 // test skip danger area
 mockGrid = {
   inDangerArea: function() { return true; }

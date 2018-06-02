@@ -18,18 +18,18 @@ each([
 // test setBeacon
 const gridWithDangerArea = new Grid(5, 5);
 each([
-  [[4, 5], [{ x: 4, y: 5}]]
-]).then('Grid should save beacon to danger area', (input, expected) => {
-  gridWithDangerArea.setBeacon(...input);
+  [{x: 4, y: 5}, [{ x: 4, y: 5}]]
+]).then('Grid should save beacon to danger area', (coordinate, expected) => {
+  gridWithDangerArea.setBeacon(coordinate);
   assert.deepStrictEqual(gridWithDangerArea.dangerArea, expected);
 });
 
 // test inDangerArea
 const gridWithDangerAreaToSkip = new Grid(5, 5);
 each([
-  [[5, 5], false],
-  [[6, 5], true]
-]).then('Grid should save beacon to danger area', (input, expected) => {
-  gridWithDangerAreaToSkip.setBeacon(...input);
+  [{x: 5, y: 5}, false],
+  [{x: 6, y: 5}, true]
+]).then('Grid should save beacon to danger area', (coordinate, expected) => {
+  gridWithDangerAreaToSkip.setBeacon(coordinate);
   assert.deepStrictEqual(gridWithDangerAreaToSkip.inDangerArea({x: 6, y: 5}), expected);
 });

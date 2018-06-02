@@ -6,7 +6,7 @@ module.exports = class Grid {
     this.dangerArea = [];
   }
 
-  setBeacon(x, y) {
+  setBeacon({x, y}) {
     this.dangerArea.push({x, y});
   }
 

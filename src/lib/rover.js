@@ -52,7 +52,7 @@ module.exports = class Rover {
     }
     if (this.grid.outOfGrid(nextCoordinate)) {
       this.markAsDead();
-      this.grid.setBeacon(nextCoordinate.x, nextCoordinate.y);
+      this.grid.setBeacon(nextCoordinate);
       return
     }
     this.x = nextCoordinate.x;
