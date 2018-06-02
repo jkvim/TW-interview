@@ -11,6 +11,7 @@ each([
   [{current: 'W', turn: 'R'}, 'N'],
   [{current: 'S', turn: 'L'}, 'E'],
   [{current: 'S', turn: 'R'}, 'W'],
-]).then(({current, turn}, expected) => {
+]).then('getNextDirection should return correct direction',
+  ({current, turn}, expected) => {
   assert.strictEqual(directionHelper.getNextDirection(current, turn), expected);
-}, 'getNextDirection should return correct direction');
+});

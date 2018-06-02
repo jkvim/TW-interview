@@ -2,7 +2,7 @@ exports.each = function (testInputs) {
   var callback;
 
   return {
-    then: function (callback, message) {
+    then: function (message, callback) {
       testInputs.forEach(function (testInput) {
         callback(testInput[0], testInput[1]);
       });

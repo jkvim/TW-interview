@@ -1,10 +1,15 @@
 const assert = require('assert');
 const Rover = require('../src/lib/rover');
+const { each } = require('./helper');
 
 const rover = new Rover(0, 0, 'E');
 
 rover.move('LMMRM');
 
-assert.strictEqual(rover.x, 1, 'x === 1');
-assert.strictEqual(rover.y, 2, 'y === 2');
-assert.strictEqual(rover.direction, 'E', 'direction === E');
+each([
+  [rover.x, 1],
+  [rover.y, 2],
+  [rover.direction, 'E'],
+]).then('Rover should move to correct position', (input, expected) => {
+  assert.strictEqual(input, expected);
+});

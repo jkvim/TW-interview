@@ -1,4 +1,5 @@
 const DIRECTION = require('../constants/direction');
+const { getNextDirection } = require('../util/directionHelper')
 
 // edge
 // die stop move
@@ -12,11 +13,15 @@ module.exports = class Rover {
     this.x = x;
     this.y = y;
     this.direction = direction;
+    this.isDead = false;
   }
 
-  trunToDirection(direction) {
-    
-    this.direction = direction;
+  trunToDirection(next) {
+    this.direction = getNextDirection(this.direction, next);
+  }
+
+  markAsDead() {
+    this.isDead = true;
   }
 
   step() {
@@ -35,7 +40,9 @@ module.exports = class Rover {
   }
 
   move(input) {
+    if (this.isDead) return;
     const instructions = input.split('');
+
     instructions.forEach(instruction => {
       if (instruction === 'M') {
         this.step(instruction);
