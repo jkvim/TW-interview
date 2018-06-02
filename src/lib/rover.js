@@ -1,14 +1,6 @@
 const DIRECTION = require('../constants/direction');
 const { getNextDirection } = require('../util/directionHelper')
 
-// die stop move (done)
-// edge judge (done)
-// ignore where has robot suicide
-// top
-// down
-// left
-// right
-
 function isNumber(num) {
   return typeof num === 'number'
 }
