@@ -51,7 +51,7 @@ outOfRangeRover.move('M');
 
 each([
   [outOfRangeRover.isDead, true],
-  [mockGrid.dangerArea, [{x: 5, y: 5 }]]
+  [mockGrid.dangerArea, [{x: 6, y: 5 }]]
 ]).then('Rover should mark as dead when out of grid and set a beacon', (input, expected) => {
   assert.deepStrictEqual(input, expected);
 });

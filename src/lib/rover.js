@@ -3,7 +3,7 @@ const { getNextDirection } = require('../util/directionHelper')
 
 // die stop move (done)
 // edge judge (done)
-// skip dandger area
+// ignore where has robot suicide
 // top
 // down
 // left
@@ -27,24 +27,27 @@ module.exports = class Rover {
   }
 
   step() {
-    const originalCoordinate = [this.x, this.y];
+    const nextCoordinate = {x: this.x, y: this.y};
 
     if (this.direction === DIRECTION.NORTH){
-      this.y = this.y + 1;
+      nextCoordinate.y = this.y + 1;
     }
     if (this.direction === DIRECTION.SOUTH) {
-      this.y = this.y - 1;
+      nextCoordinate.y = this.y - 1;
     }
     if (this.direction === DIRECTION.WEST) {
-      this.x = this.x - 1;
+      nextCoordinate.x = this.x - 1;
     }
     if (this.direction === DIRECTION.EAST) {
-      this.x = this.x + 1;
+      nextCoordinate.x = this.x + 1;
     }
-    if (this.grid.outOfGrid(this.x, this.y)) {
+    if (this.grid.outOfGrid(nextCoordinate.x, nextCoordinate.y)) {
       this.markAsDead();
-      this.grid.setBeacon(...originalCoordinate);
+      this.grid.setBeacon(nextCoordinate.x, nextCoordinate.y);
+      return
     }
+    this.x = nextCoordinate.x;
+    this.y = nextCoordinate.y;
   }
 
   move(input) {
