@@ -2,6 +2,7 @@ const assert = require('assert');
 const Rover = require('../src/lib/rover');
 const { each } = require('./helper');
 
+// test move
 const rover = new Rover(0, 0, 'E');
 
 rover.move('LMMRM');
@@ -19,8 +20,8 @@ each([
 const deadRover = new Rover(1, 2, 'E');
 
 deadRover.markAsDead();
-
 deadRover.move('MMM');
+
 each([
   [deadRover.x, 1],
   [deadRover.y, 2],

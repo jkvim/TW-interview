@@ -9,4 +9,11 @@ module.exports = class Grid {
   setBeacon(x, y) {
     this.dangerArea.push({x, y});
   }
+
+  outOfGrid(x, y) {
+    if (x > this.width || y > this.height || x < 0 || y < 0) {
+      return true
+    }
+    return false;
+  }
 };
