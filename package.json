@@ -1,5 +1,6 @@
 {
   "scripts": {
-    "test": "node ./test/index.js"
+    "test": "node ./test/index.js",
+    "start": "node ./src/main.js"
   }
 }

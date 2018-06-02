@@ -21,6 +21,24 @@ each([
   assert.strictEqual(input, expected);
 });
 
+// test rover should not continue move when is dead and keep lastest coordinate
+mockGrid = {
+  inDangerArea: function() { return false; },
+  outOfGrid: function ({x, y}) { if (x === 6) return true },
+  setBeacon: function() {}
+};
+const roveMoveUntilOutOfGrid = new Rover(1, 1, 'E', mockGrid);
+
+roveMoveUntilOutOfGrid.move('MMMMMM');
+
+each([
+  [roveMoveUntilOutOfGrid.x, 5],
+  [roveMoveUntilOutOfGrid.y, 1],
+  [roveMoveUntilOutOfGrid.direction, 'E'],
+]).then('Rover should stop when out of grid', (input, expected) => {
+  assert.strictEqual(input, expected);
+});
+
 
 // test markAsDead
 mockGrid = {
@@ -55,4 +73,18 @@ each([
   [skipDangerAreaRover.y, 0],
 ]).then('Rover should ignore instruction when next step is danger area', (input, expected) => {
   assert.strictEqual(input, expected);
+});
+
+// test caculate
+each([
+  [[0, 0, 'S'], [0, -1]],
+  [[0, 0, 'N'], [0, 1]],
+  [[0, 0, 'W'], [-1, 0]],
+  [[0, 0, 'E'], [1, 0]],
+]).then('Rover should caculate correct next coordinate', (param, expected) => {
+  const mockGrid = {x: 5, y: 5}
+  const rover = new Rover(...param, mockGrid);
+  const result = rover.caculateNextCoordinate();
+  assert.strictEqual(result.x, expected[0]);
+  assert.strictEqual(result.y, expected[1]);
 });

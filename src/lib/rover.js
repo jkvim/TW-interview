@@ -9,8 +9,15 @@ const { getNextDirection } = require('../util/directionHelper')
 // left
 // right
 
+function isNumber(num) {
+  return typeof num === 'number'
+}
+
 module.exports = class Rover {
   constructor(x = 0, y = 0, direction = DIRECTION.NORTH, grid) {
+    if (!isNumber(x) || !isNumber(y)) {
+      throw new Error('coordinate must be integer number')
+    }
     this.x = x;
     this.y = y;
     this.direction = direction;
@@ -53,22 +60,32 @@ module.exports = class Rover {
     if (this.grid.outOfGrid(nextCoordinate)) {
       this.markAsDead();
       this.grid.setBeacon(nextCoordinate);
-      return
+      return;
     }
     this.x = nextCoordinate.x;
     this.y = nextCoordinate.y;
   }
 
   move(input) {
-    if (this.isDead) return;
     const instructions = input.split('');
-
     instructions.forEach(instruction => {
+      if (this.isDead) return;
+
       if (instruction === 'M') {
         this.step(instruction);
       } else {
         this.trunToDirection(instruction);
       }
     });
+  }
+
+  state() {
+    const coordinate = [this.x, this.y, this.direction];
+    const rip = 'RIP';
+    return this.isDead ? [...coordinate, rip].join(' ') : coordinate.join(' ')
+  }
+
+  print() {
+    console.log(this.state());
   }
 }
