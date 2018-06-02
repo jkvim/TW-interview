@@ -50,7 +50,7 @@ module.exports = class Rover {
     if (this.grid.inDangerArea(nextCoordinate)) {
       return;
     }
-    if (this.grid.outOfGrid(nextCoordinate.x, nextCoordinate.y)) {
+    if (this.grid.outOfGrid(nextCoordinate)) {
       this.markAsDead();
       this.grid.setBeacon(nextCoordinate.x, nextCoordinate.y);
       return

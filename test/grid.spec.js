@@ -5,14 +5,14 @@ const { each } = require('./helper');
 // test outOfGrid
 const grid = new Grid(5, 5);
 each([
-  [[0, 0], false],
-  [[1, 2], false],
-  [[-1, 0], true],
-  [[0, -1], true],
-  [[0, 6], true],
-  [[6, 0], true],
+  [{x: 0, y: 0}, false],
+  [{x: 1, y: 2}, false],
+  [{x: -1,y: 0}, true],
+  [{x: 0, y: -1}, true],
+  [{x: 0, y: 6}, true],
+  [{x: 6, y: 0}, true],
 ]).then('Grid should judge correctly when rover move out of range', (coordinate, result) => {
-  assert.strictEqual(grid.outOfGrid(...coordinate), result);
+  assert.strictEqual(grid.outOfGrid(coordinate), result);
 });
 
 // test setBeacon

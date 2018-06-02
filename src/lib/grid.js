@@ -10,7 +10,7 @@ module.exports = class Grid {
     this.dangerArea.push({x, y});
   }
 
-  outOfGrid(x, y) {
+  outOfGrid({x, y}) {
     if (x > this.width || y > this.height || x < 0 || y < 0) {
       return true
     }
