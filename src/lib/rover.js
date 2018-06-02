@@ -47,7 +47,7 @@ module.exports = class Rover {
   step() {
     const nextCoordinate = this.caculateNextCoordinate();
 
-    if (this.grid.inDangerArea(nextCoordinate.x, nextCoordinate.y)) {
+    if (this.grid.inDangerArea(nextCoordinate)) {
       return;
     }
     if (this.grid.outOfGrid(nextCoordinate.x, nextCoordinate.y)) {

@@ -17,7 +17,7 @@ module.exports = class Grid {
     return false;
   }
 
-  inDangerArea(x, y) {
+  inDangerArea({x, y}) {
     return !!this.dangerArea.find(coor => coor.x === x && coor.y === y);
   }
 };

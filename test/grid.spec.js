@@ -23,3 +23,13 @@ each([
   gridWithDangerArea.setBeacon(...input);
   assert.deepStrictEqual(gridWithDangerArea.dangerArea, expected);
 });
+
+// test inDangerArea
+const gridWithDangerAreaToSkip = new Grid(5, 5);
+each([
+  [[5, 5], false],
+  [[6, 5], true]
+]).then('Grid should save beacon to danger area', (input, expected) => {
+  gridWithDangerAreaToSkip.setBeacon(...input);
+  assert.deepStrictEqual(gridWithDangerAreaToSkip.inDangerArea({x: 6, y: 5}), expected);
+});
