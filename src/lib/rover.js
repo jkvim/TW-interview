@@ -26,7 +26,7 @@ module.exports = class Rover {
     this.isDead = true;
   }
 
-  step() {
+  caculateNextCoordinate() {
     const nextCoordinate = {x: this.x, y: this.y};
 
     if (this.direction === DIRECTION.NORTH){
@@ -40,6 +40,15 @@ module.exports = class Rover {
     }
     if (this.direction === DIRECTION.EAST) {
       nextCoordinate.x = this.x + 1;
+    }
+    return nextCoordinate;
+  }
+
+  step() {
+    const nextCoordinate = this.caculateNextCoordinate();
+
+    if (this.grid.inDangerArea(nextCoordinate.x, nextCoordinate.y)) {
+      return;
     }
     if (this.grid.outOfGrid(nextCoordinate.x, nextCoordinate.y)) {
       this.markAsDead();
