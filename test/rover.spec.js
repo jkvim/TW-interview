@@ -2,8 +2,13 @@ const assert = require('assert');
 const Rover = require('../src/lib/rover');
 const { each } = require('./helper');
 
+let mockGrid;
+
 // test move
-const rover = new Rover(0, 0, 'E');
+mockGrid = {
+  outOfGrid: function () { return false; },
+};
+const rover = new Rover(0, 0, 'E', mockGrid);
 
 rover.move('LMMRM');
 
@@ -17,7 +22,10 @@ each([
 
 
 // test markAsDead
-const deadRover = new Rover(1, 2, 'E');
+mockGrid = {
+  outOfGrid: function () { return false; },
+};
+const deadRover = new Rover(1, 2, 'E', mockGrid);
 
 deadRover.markAsDead();
 deadRover.move('MMM');
@@ -29,4 +37,21 @@ each([
   [deadRover.isDead, true],
 ]).then('Rover is dead should not move', (input, expected) => {
   assert.strictEqual(input, expected);
+});
+
+// test step out of grid range
+mockGrid = {
+  dangerArea: [],
+  outOfGrid: function () { return true; },
+  setBeacon: function (x, y) { this.dangerArea.push({ x, y }) }
+};
+const outOfRangeRover = new Rover(5, 5, 'E', mockGrid);
+
+outOfRangeRover.move('M');
+
+each([
+  [outOfRangeRover.isDead, true],
+  [mockGrid.dangerArea, [{x: 5, y: 5 }]]
+]).then('Rover should mark as dead when out of grid and set a beacon', (input, expected) => {
+  assert.deepStrictEqual(input, expected);
 });

@@ -1,19 +1,21 @@
 const DIRECTION = require('../constants/direction');
 const { getNextDirection } = require('../util/directionHelper')
 
-// edge
-// die stop move
+// die stop move (done)
+// edge judge (done)
+// skip dandger area
 // top
 // down
 // left
 // right
 
 module.exports = class Rover {
-  constructor(x = 0, y = 0, direction = DIRECTION.NORTH) {
+  constructor(x = 0, y = 0, direction = DIRECTION.NORTH, grid) {
     this.x = x;
     this.y = y;
     this.direction = direction;
     this.isDead = false;
+    this.grid = grid;
   }
 
   trunToDirection(next) {
@@ -25,6 +27,8 @@ module.exports = class Rover {
   }
 
   step() {
+    const originalCoordinate = [this.x, this.y];
+
     if (this.direction === DIRECTION.NORTH){
       this.y = this.y + 1;
     }
@@ -36,6 +40,10 @@ module.exports = class Rover {
     }
     if (this.direction === DIRECTION.EAST) {
       this.x = this.x + 1;
+    }
+    if (this.grid.outOfGrid(this.x, this.y)) {
+      this.markAsDead();
+      this.grid.setBeacon(...originalCoordinate);
     }
   }
 
